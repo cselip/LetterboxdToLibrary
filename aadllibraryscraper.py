@@ -2,14 +2,13 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def library(movie_list):
+def aadllibrary(movie_list):
     # The final list that main will print
     movies_library_has = []
 
     for i in movie_list:
-        url = f'https://aadl.org/search/catalog/{i}'
+        url = f'https://aadl.org/search/catalog/{i}?mat_code=u,g,q,zm'
 
-        # Send a GET request
         response = requests.get(url)
 
         # Make sure it worked
@@ -30,23 +29,13 @@ def library(movie_list):
                     # Get the title (formatted wrong for now) from search result class
                     result_to_analyze = search_result.find('a', class_='result-title').string
                     # Clean up format because they have weird newline and whitespace all over
-                    result_ws_newline_removed = result_to_analyze.replace(" ", "").replace("\n", "")
+                    result_ws_newline_removed = result_to_analyze.replace(' ', '').replace('\n', '')
                     # Compare result of both without WS and in lowercase
-                    if result_ws_newline_removed.casefold() == i.replace(" ", "").casefold():
+                    if result_ws_newline_removed.casefold() == i.replace(' ', '').casefold():
                         movies_library_has.append(i)
                         break
                     else:
                         search_count += 1
         else:
-            print("Couldn't connect to library")
+            print(f'Could not connect to AADL library for {i}')
     return movies_library_has
-
-
-
-
-
-
-
-
-
-
