@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 
 def aadllibrary(movie_list):
     # The final list that main will print
-    movies_library_has = []
 
     for i in movie_list:
         url = f'https://aadl.org/search/catalog/{i}?mat_code=u,g,q,zm'
@@ -32,10 +31,10 @@ def aadllibrary(movie_list):
                     result_ws_newline_removed = result_to_analyze.replace(' ', '').replace('\n', '')
                     # Compare result of both without WS and in lowercase
                     if result_ws_newline_removed.casefold() == i.replace(' ', '').casefold():
-                        movies_library_has.append(i)
+                        yield i
                         break
                     else:
                         search_count += 1
         else:
             print(f'Could not connect to AADL library for {i}')
-    return movies_library_has
+    return

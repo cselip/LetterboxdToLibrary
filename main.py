@@ -19,8 +19,10 @@ msuoraadl = input('Which library would you like to search? Enter 1 for AADL, 2 f
 while msuoraadl not in ['1', '2']:
     msuoraadl = input('That was not a valid input! Please try again, 1 for AADL, 2 for MSU. ')
 
-
+movies_to_search = letterboxd(desired_rating, username, normal_or_watchlist)
 if msuoraadl == '1':
-    print("\n".join(aadllibrary(letterboxd(desired_rating, username, normal_or_watchlist))))
+    for movie in aadllibrary(movies_to_search):
+        print(movie)
 elif msuoraadl == '2':
-    print("\n".join(msulibrary(letterboxd(desired_rating, username, normal_or_watchlist))))
+    for movie in msulibrary(movies_to_search):
+        print(movie)
